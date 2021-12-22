@@ -104,8 +104,9 @@ export default {
         this.socket.on("message", (load) => {
             if (load) {
                 if (Number(load.message) > this.currentBidValue) {
-                    this.loadList = [...this.loadList, load];
+                    this.loadList = [load,...this.loadList];
                     this.currentBidValue = Number(load.message);
+                    console.log(this.loadList);
                 }
             }
         });
