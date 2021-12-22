@@ -1,6 +1,6 @@
 <template>
 <ul >
-  <events-child />
+  <events-child  />
 </ul>
   
 </template>
