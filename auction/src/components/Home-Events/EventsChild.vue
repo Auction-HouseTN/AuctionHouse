@@ -15,10 +15,13 @@
       <h4 class="card-text">{{ item.startPrice }}DT</h4>
       <label>
         After you click we will check first your balance if you have Adequate
-        balance we will send you email to join event</label>
-        <button  ><router-link class="nav-link " to='/auction'>Join to This event</router-link></button>
-         
-      
+        balance we will send you email to join event</label
+      >
+      <button>
+        <router-link class="nav-link" to="/auction"
+          >Join to This event</router-link
+        >
+      </button>
     </ul>
   </div>
 </template>
@@ -28,24 +31,23 @@ import axios from "axios";
 import NavbarEvent from "./Navbar-event.vue";
 
 export default {
-    name: "EventsChild",
-    component: {},
-    
-    
-    data() {
-        return {
-            array: ["hello", "hii", "back"],
-            events: [],
-        };
-    },
-    mounted() {
-        axios.get("http://localhost:5000/events").then(({ data }) => {
-            this.events = data;
-            console.log("pppppppp", this.events);
-        });
-    },
-    methods: {},
-    components: { NavbarEvent }
+  name: "EventsChild",
+  component: {},
+
+  data() {
+    return {
+      array: ["hello", "hii", "back"],
+      events: [],
+    };
+  },
+  mounted() {
+    axios.get("http://localhost:5000/events").then(({ data }) => {
+      this.events = data;
+      console.log("pppppppp", this.events);
+    });
+  },
+  methods: {},
+  components: { NavbarEvent },
 };
 </script>
 
