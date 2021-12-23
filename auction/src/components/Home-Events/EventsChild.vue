@@ -55,8 +55,8 @@
       <img class="card-img-top" :src="item.img" alt="Product image" />
       <label>Descriptions :</label>
       <h4>{{ item.descriptions }}</h4>
-      <label>Event start on :</label>
-      <h3 class="card-text">{{ item.StartDate }}</h3>
+      <label>Event start in :</label>
+      <h3 class="card-text"> {{getTime(item.StartDate)}} </h3>
       <label>The start price :</label>
       <h4 class="card-text">{{ item.startPrice }}DT</h4>
       <label>
@@ -86,9 +86,8 @@
 
 <script>
 import axios from "axios";
-
 import NavbarEvent from "./Navbar-event.vue";
-
+import moment from "moment"
 export default {
   name: "EventsChild",
 
@@ -103,6 +102,10 @@ export default {
     axios.get("http://localhost:5000/events").then(({ data }) => {
       this.events = data;
     });
+   
+  
+  
+  
   },
   methods: {
     // getId(id) {
@@ -117,6 +120,14 @@ export default {
     //   this.$router.push("/auction",params)
     //   // this.$router.push({name:"/auction",params:{data:this.item}})
     // }
+    getTime(time){
+     return  moment(time).fromNow()
+    },
+    disableTimer(time){
+      if(time>moment().format()){return true}
+      else return false
+
+    }
   },
   components: {
     NavbarEvent,
