@@ -1,7 +1,12 @@
 <template>
+
 <ul >
   <events-child  />
 </ul>
+
+
+
+
   
 </template>
 
@@ -13,6 +18,6 @@ name:"Events",
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
