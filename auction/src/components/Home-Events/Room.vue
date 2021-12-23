@@ -13,11 +13,11 @@
         </h1>
         <h3 v-if="counter">Time :{{ counter }}</h3>
 
-        <tr v-if="loadList[0]">
+        <tr v-if="currentBidValue ">
           <h2>
             <td>
-              The Greatest Bid <br />
-              {{ loadList[0].message }}
+              Current Bid Amount <br />
+              {{ currentBidValue }}
             </td>
           </h2>
         </tr>
@@ -58,9 +58,7 @@
           </form>
       </div>
   </div> -->
-  
   </div>
-  
 </template>
 
 <script>
@@ -112,9 +110,10 @@ export default {
   
      if (this.e) {
             this.welcome = JSON.parse(this.e) 
+            this.currentBidValue=this.welcome.startPrice
             
         }
-        console.log("jjjj",this.welcome)
+        console.log("jjjj",this.currentBidValue)
        
 
 //       this.events=this.$route.params.data
@@ -126,7 +125,7 @@ export default {
     this.socket.on("message", (load) => {
       if (load) {
         if (Number(load.message) > this.currentBidValue) {
-          this.loadList = [...this.loadList, load];
+          this.loadList = [load, ...this.loadList];
           this.currentBidValue = Number(load.message);
         }
       }
@@ -135,6 +134,7 @@ export default {
       this.counter = counter;
       if (counter === 1) {
         this.winner = this.loadList[this.loadList.length - 1].user;
+        // request to database update
       }
     });
     
