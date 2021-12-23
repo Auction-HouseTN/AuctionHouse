@@ -172,10 +172,13 @@ app.use("/users", users);
 app.get("/", (req, res) => {
   res.send("Invalid endpoint!");
 });
+
+
 app.post('/create',(req,res)=>{
   console.log("oooooooooooooooo",req.body)
   
   event.create(req.body).then((result)=>{
+    console.log('event added');
     res.json(result)
   })
   
@@ -186,6 +189,8 @@ app.get('/events',(req,res)=>{
     res.json(result)
   })
 })
+
+
 app.post('/money',(req,res)=>{
   console.log("hihihihihihihihihihihi",req.body)
   event.create(req.body).then((result)=>{
