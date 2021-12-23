@@ -1,15 +1,19 @@
 <template>
-  <div class="hello">
-   
-  </div>
+
+ 
+<Events/>
+
 </template>
 
 <script>
+import Events from "./Home-Events/Events.vue";
+
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
+    name: "HelloWorld",
+    props: {
+        msg: String
+    },
+    components: { Events }
 }
 </script>
 
