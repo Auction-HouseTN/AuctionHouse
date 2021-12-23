@@ -20,6 +20,14 @@ const userSchema = new mongoose.Schema({
       type: String,
       required: true,
   },
+  status: {
+    type: String, 
+    enum: ['Pending', 'Active'],
+    default: 'Pending'
+  },
+  confirmationCode: { 
+    type: String, 
+    unique: true },
   balance:{ type: Number, default: 0 }
 });
 userSchema.plugin(AutoIncrement, {id:'id_seq',inc_field: 'id'});
