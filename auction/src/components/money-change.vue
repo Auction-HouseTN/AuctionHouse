@@ -19,13 +19,13 @@
     <h2>Stripe Checkout</h2>
     <div class="row mt-5">
       <div class="col-md-4">
-        <button v-on:click="pay(1000)" v-on:click="money(1000)"  class="btn btn-primary btn-block">Pay 1000DT</button>
+        <button v-on:click="pay(1000)" @click="money(1000)"  class="btn btn-primary btn-block">Pay 1000DT</button>
       </div>
       <div class="col-md-4">
-        <button v-on:click="pay(10000)" v-on:click="money(10000)" class="btn btn-success btn-block">Pay 10000DT</button>
+        <button v-on:click="pay(10000)" @click="money(10000)" class="btn btn-success btn-block">Pay 10000DT</button>
       </div>
       <div class="col-md-4">
-        <button v-on:click="pay(100000)" v-on:click="money(100000)" class="btn btn-info btn-block">Pay 100000DT</button>
+        <button v-on:click="pay(100000)" @click="money(100000)" class="btn btn-info btn-block">Pay 100000DT</button>
       </div>    
     </div>
     
