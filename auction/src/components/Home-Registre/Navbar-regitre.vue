@@ -1,4 +1,5 @@
 <template>
+ 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <button
@@ -21,7 +22,7 @@
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
           <li>
-              <router-link class="nav-link" to='/'>Go==></router-link> 
+              <router-link class="nav-link" to='/login'>Go==></router-link> 
           </li>
           
         </ul>
