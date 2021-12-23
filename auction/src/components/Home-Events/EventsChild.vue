@@ -17,37 +17,58 @@
         After you click we will check first your balance if you have Adequate
         balance we will send you email to join event</label
       >
-      <button>
-        <router-link class="nav-link" to="/auction"
-          >Join to This event</router-link
-        >
-      </button>
+      <p>hello</p>
+
+      <!-- <button> 
+        <router-link class="nav-link" to="auction">Join to This event</router-link>
+        
+      </button> -->
+      <!-- <button v-on:click="getId(item)"> -->
+        <router-link :to="{ name: 'Room', params: { e:JSON.stringify(item)} }">
+          Join to event
+        </router-link>
+      <!-- </button> -->
     </ul>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+
 import NavbarEvent from "./Navbar-event.vue";
 
 export default {
   name: "EventsChild",
-  component: {},
 
   data() {
     return {
-      array: ["hello", "hii", "back"],
+      e:{},
+      msg: "",
       events: [],
     };
   },
   mounted() {
     axios.get("http://localhost:5000/events").then(({ data }) => {
       this.events = data;
-      console.log("pppppppp", this.events);
     });
   },
-  methods: {},
-  components: { NavbarEvent },
+  methods: {
+    // getId(id) {
+    //   this.msg = id;
+    //   console.log("hhhhhhhhh",this.msg)
+    // },
+    // product() {
+    //   router.push({name:"Room",params:{title:"item.title"}})
+    // }
+    // shareData(){
+    //    var params={data:this.events};
+    //   this.$router.push("/auction",params)
+    //   // this.$router.push({name:"/auction",params:{data:this.item}})
+    // }
+  },
+  components: {
+    NavbarEvent,
+  },
 };
 </script>
 
