@@ -20,7 +20,7 @@
             <span class="shopping-cart"
               ><i class="fa fa-shopping-cart" aria-hidden="true"></i
             ></span>
-            <router-link class="buy" to="/auction"
+            <router-link class="buy" :to="{ name: 'Room', params: { e:JSON.stringify(item)} }"
           >join event</router-link
         >
             
@@ -69,40 +69,71 @@
         >
       </button>
     </ul>-->
+     <!-- <p>hello</p>-->
+
+      <!-- <button> 
+        <router-link class="nav-link" to="auction">Join to This event</router-link>
+        
+      </button> -->
+      <!-- <button v-on:click="getId(item)">
+        <router-link :to="{ name: 'Room', params: { e:JSON.stringify(item)} }">
+          Join to event
+        </router-link> -->
+      <!-- </button> 
+    </ul>-->
   </div>
 </template>
 
 <script>
 import axios from "axios";
+
 import NavbarEvent from "./Navbar-event.vue";
 
 export default {
   name: "EventsChild",
-  component: {},
 
   data() {
     return {
-      array: ["hello", "hii", "back"],
+      e:{},
+      msg: "",
       events: [],
     };
   },
   mounted() {
     axios.get("http://localhost:5000/events").then(({ data }) => {
       this.events = data;
-      console.log("pppppppp", this.events);
     });
   },
-  methods: {},
-  components: { NavbarEvent },
+  methods: {
+    // getId(id) {
+    //   this.msg = id;
+    //   console.log("hhhhhhhhh",this.msg)
+    // },
+    // product() {
+    //   router.push({name:"Room",params:{title:"item.title"}})
+    // }
+    // shareData(){
+    //    var params={data:this.events};
+    //   this.$router.push("/auction",params)
+    //   // this.$router.push({name:"/auction",params:{data:this.item}})
+    // }
+  },
+  components: {
+    NavbarEvent,
+  },
 };
 </script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bree+Serif&family=EB+Garamond:ital,wght@0,500;1,800&display=swap");
-
-
-
+.allcomponent{
+  background: linear-gradient(-45deg, #5D6C8C, #B8BDD9,#79D9D9, #5D6C8C);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+  height: 100%;
+}
 #container {
+  
   box-shadow: 0 15px 30px 1px grey;
   background: rgba(255, 255, 255, 0.9);
   text-align: center;
@@ -112,10 +143,8 @@ export default {
   margin-top: 14%;
   height: 350px;
   width: 700px;
-  background: linear-gradient(-45deg, #c5c8d9,#7e81bf);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
- 
+  background-color:#D9D2C5;
+  
 }
 
 .product-details {
@@ -463,4 +492,9 @@ input[type="checkbox"]{
    transition-delay: .6s;
   transform: translateX(-100px);
 }
+/*
+
+////////////////////////
+*/
+
 </style>

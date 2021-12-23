@@ -283,8 +283,8 @@ body {
 .allthecomponent {
   background: linear-gradient(-45deg, #c5c8d9, #c2c4f2, #7e81bf, #1e2159);
   background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-  height: 100vh;
+  animation: gradient 7s ease infinite;
+  height: 100%;
 }
 
 @keyframes gradient {
