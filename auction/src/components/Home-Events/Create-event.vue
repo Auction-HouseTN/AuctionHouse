@@ -55,7 +55,7 @@
               </div>
               <div class="form-group">
                 <label>Date of the Event :</label>
-                <input type="date" v-model="date" ctype="date" />
+                <input type="datetime-local" v-model="date" ctype="date" />
               </div>
               <div class="form-group">
                 <p class="text-center">
@@ -107,8 +107,8 @@ export default {
         title: this.title,
         descriptions: this.descriptions,
         img: this.img,
-        money: this.money,
-        date: this.date,
+        startPrice: this.money,
+        StartDate: this.date,
       };
       console.log(body);
       axios.post("http://localhost:5000/create", body).then((data) => {
