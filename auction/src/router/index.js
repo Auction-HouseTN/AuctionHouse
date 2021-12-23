@@ -53,6 +53,11 @@ const routes = [
     name: "Sell",
     component: () => import("../components/Home-Events/Sell.vue"),
   },
+  {
+    path: "/moneyChange",
+    name: "moneyChange",
+    component: () => import("../components/Home-Events/money-change.vue"),
+  }
 ];
 
 const router = createRouter({
