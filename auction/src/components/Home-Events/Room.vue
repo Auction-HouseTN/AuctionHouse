@@ -2,25 +2,28 @@
   <div>
     <NavbarEvent />
     <div>
+       <h1>{{welcome.title}}</h1>
+    </div>
+    <div>
       <h1>The Event Screen</h1>
-
+      <h1></h1> 
       <div>
         <h1 v-if="winner">
           Congratulation the winner is:<br />" {{ winner }} "
         </h1>
         <h3 v-if="counter">Time :{{ counter }}</h3>
 
-        <tr v-if="loadList[0]">
+        <tr v-if="currentBidValue ">
           <h2>
             <td>
-              The Greatest Bid <br />
-              {{ loadList[0].message }}
+              Current Bid Amount <br />
+              {{ currentBidValue }}
             </td>
           </h2>
         </tr>
 
-        <input v-model="newMessage" @keyup.enter="sendMessage" />
-        <button @click="sendMessage">Bid Now</button>
+        <input v-model="newMessage" />
+        <button class="btn btn-primary" @click="sendMessage">Bid Now</button>
 
         <ul>
           <li v-for="load in loadList" :key="load.message">
@@ -63,6 +66,7 @@ import io from "socket.io-client";
 import NavbarEvent from "./Navbar-event.vue";
 export default {
   name: "Room",
+  props: ['e'],
   data() {
     return {
       loadList: [],
@@ -75,9 +79,13 @@ export default {
       //     message: '',
       //     messages: [],
       socket: io("localhost:5000"),
+       welcome:{},
+     
     };
   },
+    
   methods: {
+      
     sendMessage(e) {
       // e.preventDefault();
       // this.socket.emit("SEND_MESSAGE", {
@@ -99,6 +107,17 @@ export default {
     },
   },
   mounted() {
+  
+     if (this.e) {
+            this.welcome = JSON.parse(this.e) 
+            this.currentBidValue=this.welcome.startPrice
+            
+        }
+        console.log("jjjj",this.currentBidValue)
+       
+
+//       this.events=this.$route.params.data
+// console.log("pppppppp",this.events);
     // this.socket.on('MESSAGE', (data) => {
     //     this.messages = [...this.messages, data];
     //     // you can also do this.messages.push(data)
@@ -115,10 +134,13 @@ export default {
       this.counter = counter;
       if (counter === 1) {
         this.winner = this.loadList[this.loadList.length - 1].user;
+        // request to database update
       }
     });
+    
   },
   components: { NavbarEvent },
+  
 };
 </script>
 

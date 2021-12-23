@@ -1,10 +1,16 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-
+import RoomVue from "../components/Home-Events/Room.vue";
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: () => import("../views/Home.vue"),
+    name: "EventsChild",
+    component: () => import("../components/Home-Events/EventsChild.vue"),
+  },
+  {
+    path: "/auction",
+    name: "Room",
+    component: RoomVue,
+    props: true,
   },
   {
     path: "/login",
@@ -22,15 +28,9 @@ const routes = [
     component: () => import("../components/Home-Events/Create-event.vue"),
   },
   {
-    path:"/nregistre",
-    name:"NavbarRegistre",
-    component: () => import("../components/Home-Registre/Navbar-regitre.vue")
-  }
-  ,
-  {
-    path: "/auction",
-    name: "/Room",
-    component: () => import("../components/Home-Events/Room.vue")
+    path: "/nregistre",
+    name: "NavbarRegistre",
+    component: () => import("../components/Home-Registre/Navbar-regitre.vue"),
   },
   {
     path: "/aboutus",
@@ -53,6 +53,11 @@ const routes = [
     name: "Sell",
     component: () => import("../components/Home-Events/Sell.vue"),
   },
+  {
+    path: "/moneyChange",
+    name: "moneyChange",
+    component: () => import("../components/Home-Events/money-change.vue"),
+  }
 ];
 
 const router = createRouter({

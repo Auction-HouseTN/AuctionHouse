@@ -36,14 +36,18 @@
         
           
             <!-- <h3 class="nav-item" class="nav-link" >My Balance is {{this.data}} </h3> -->
-            <h3  class="profilName" >{{profilName}} 🟢 </h3>    
+            <h3  class="profilName" > 🟢 </h3>    
       </div>
     </div>
   </nav>
 </template>
 <script>
 export default {
-    name: "NavbarEvents"
+    name: "NavbarEvents",
+    mounted(){
+     
+    },
+    
 }
 </script>
 <style>
