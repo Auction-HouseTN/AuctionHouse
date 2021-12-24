@@ -77,7 +77,7 @@ export default {
       winner: "",
       counter: 1,
       currentBidValue: 0,
-      // user: '',
+      user: '',
       //     message: '',
       //     messages: [],
       socket: io("localhost:5000"),
@@ -101,7 +101,11 @@ export default {
         Number(this.newMessage) > this.currentBidValue ||
         this.newMessage === "start"
       ) {
+
+        var us=sessionStorage.getItem('user')
+        console.log('aaa',us);
         this.socket.emit("message", {
+          
           user: this.user,
           message: this.newMessage,
         });
