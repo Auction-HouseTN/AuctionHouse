@@ -11,10 +11,7 @@
         <h1>{{ item.title }}</h1>
 
         <p class="information">start's {{ getTime(item.StartDate) }}</p>
-        <!-- <p class="information">
-        {{ item.descriptions }}
-        </p> -->
-<!-- <h3 > {{getTime(item.StartDate)}} </h3> -->
+      
 
         <div class="control" >
           <button class="btn" :disabled="disableTimer(item.StartDate,item.endtDate)">
@@ -23,6 +20,7 @@
               ><i class="fa fa-shopping-cart" aria-hidden="true"></i
             ></span>
             <router-link
+            style="text-decoration: none; color: inherit;"
               class="buy"
               :to="{ name: 'Room', params: { e: JSON.stringify(item) } }"
               >Join Auction</router-link
@@ -43,6 +41,15 @@
         </div>
       </div>
     </div>
+
+
+
+
+
+
+
+
+
 
     <!--<ul v-for="item in events" :key="item" class="card" style="width: 500px">
       <label>The Seller is :</label>
@@ -218,7 +225,7 @@ export default {
   cursor: pointer;
   outline: none;
   border: none;
-  color: #eee;
+  color: rgb(98, 106, 107);
   padding: 0;
   margin: 0;
 }
@@ -247,9 +254,7 @@ export default {
   transform: translateX(-10%);
   padding-right: 15px;
 }
-a .buy{
-  color:rgb(131, 130, 130);
-}
+
 
 .btn .shopping-cart {
   transform: translateX(-100%);
@@ -263,6 +268,8 @@ a .buy{
 .btn .buy {
   z-index: 3;
   font-weight: bolder;
+  
+  
 }
 
 .btn:hover .price {

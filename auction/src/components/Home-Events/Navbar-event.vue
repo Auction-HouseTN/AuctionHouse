@@ -9,23 +9,25 @@
                 <div class="topnav">
                     <ul id="myUL">
                     <li id="tomars">
-                    <router-link to='/'>Home </router-link>
+                    <router-link to='/'>Home</router-link>
                     </li>
                     <li id="tojupiter">
-                    <router-link to='/create'>Create </router-link>
+                    <router-link to='/create'>Create</router-link>
                     </li>
-                    <!-- <li id="tomoon">
-                    <router-link to='/buy'>Buy Coins</router-link>
+                    <li id="tomoon">
+                    <router-link to='/buy'>Buy</router-link>
                     </li>
                     <li id="bo">
-                     <router-link to='/sell'>Sell Coins</router-link>
-                    </li> -->
+                     <router-link to='/moneyChange'>Sell</router-link>
+                    </li>
                     <li id="bo">
                      <router-link to='/aboutus'>About us</router-link>
                     </li>
                     <li id="bo">
-                     <router-link to='/login'>Log out</router-link> 
-                    </li> 
+                      <button class="navlogout" @click="logout">
+                     <router-link to='/login' >Log out</router-link> 
+                      </button>
+                    </li>
                  </ul>
                  <!-- <span class="dot"></span> -->
                 </div>
@@ -82,6 +84,9 @@ export default {
     mounted(){
      
     },
+    methods:{
+      logout :function(){sessionStorage.removeItem('user')}
+    }
     
 }
 </script>
@@ -154,5 +159,10 @@ export default {
   display: inline-block;
   margin-left: 660px;
   
+}
+.navlogout{
+padding: 0;
+border: none;
+background: none;
 }
 </style>

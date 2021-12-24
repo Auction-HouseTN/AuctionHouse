@@ -13,17 +13,16 @@
                 </div>
                 <h2 id="titleoftheitem">{{ welcome.title }}</h2>
                 <div>
-                   <h1 v-if="winner" class="block-effect" style="--td: 1.2s">
-  <div class="block-reveal" style="--bc: #4040bf; --d: .1s"> Congratulation the winner is:</div>
-  <div class="block-reveal" style="--bc: #bf4060; --d: .5s">" {{ winner }} "</div>
-</h1>
-                  <!-- <h1 >
-                    Congratulation the winner is:<br />" {{ winner }} "
-                  </h1>-->
-                </div> 
+                  <h1 v-if="winner" class="block-effect" style="--td: 1.2s">
+                    <div class="block-reveal" style="--bc: #4040bf; --d: 0.1s">
+                      Congratulation the winner is:
+                    </div>
+                    <div class="block-reveal" style="--bc: #bf4060; --d: 0.5s">
+                      " {{ winner }} "
+                    </div>
+                  </h1>
+                </div>
                 <div class="or">
-                 
-
                   <h3 v-if="counter">Time :{{ counter }}</h3>
                 </div>
                 <tr v-if="currentBidValue">
@@ -53,91 +52,59 @@
               </div>
               <ul class="messages">
                 <li v-for="load in loadList" :key="load.message">
-                  {{ load.message }} Dt
+                  {{ load.user }} bid: {{ load.message }} Dt
                 </li>
               </ul>
             </div>
           </div>
           <div class="right-side">
             <div class="cover_image">
-              <h2>aaaaaaaaa</h2>
-              <h2>aaaaaaaaa</h2>
-              <h2>aaaaaaaaa</h2>
-              <h2>hhhhhhhhhhhhhhh</h2>
-              <h2>hhhhhhhhhhhhhhh</h2>
-              <h2>hhhhhhhhhhhhhhh</h2>
-              <h2>hhhhhhhhhhhhhhh</h2>
-              <h2>hhhhhhhhhhhhhhh</h2>
-              <h2>hhhhhhhhhhhhhhh</h2>
-              <h2>hhhhhhhhhhhhhhh</h2>
-              <h2>hhhhhhhhhhhhhhh</h2>
-              <h2>aaaaaaaaaaaaa</h2>
-              <h2>aaaaaaaaaaaaa</h2>
-              <!-- <img src="https://imgur.com/TTmJuFD.jpg" /> -->
+              <div class="chatgroup">
+                <div class="card-body">
+                  <div class="card-title">
+                    <h3 id="chatgrouptitle">Chat Group</h3>
+                    <hr />
+                  </div>
+                  <div class="card-body">
+                    <div class="messages"></div>
+                  </div>
+                </div>
+                <div>
+                  <form @submit.prevent="chat">
+                    <h1 v-if="load">{{ load.user }}</h1>
+
+                    <div class="gorm-group pb-3">
+                      <div v-for="(mess, i) in messages" :key="i">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-8">
+                              <div class="card card-white post">
+                                <div class="post-description">
+                                  <p>
+                                    {{ mess.user }} said : {{ mess.message }}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <input
+                        type="text"
+                        v-model="message"
+                        placeholder="message"
+                        class="form-control"
+                      />
+                    </div>
+                    <button type="submit" class="sendmsg">Send</button>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- <div>
-       <h1>{{welcome.title}}</h1>
-    </div>
-    <div>
-      <h1>The Event Screen</h1>
-      <h1></h1> 
-      <div>
-        <h1 v-if="winner">
-          Congratulation the winner is:<br />" {{ winner }} "
-        </h1>
-        <h3 v-if="counter">Time :{{ counter }}</h3>
-
-        <tr v-if="currentBidValue ">
-          <h2>
-            <td>
-              Current Bid Amount <br />
-              {{ currentBidValue }}
-            </td>
-          </h2>
-        </tr>
-
-        <input v-model="newMessage" />
-        <button class="btn btn-primary" @click="sendMessage">Bid Now</button>
-
-        <ul>
-          <li v-for="load in loadList" :key="load.message">
-            {{ load.message }}
-          </li>
-        </ul>
-      </div>
-    </div>  -->
-
-    <!-- <div class="card mt-3">
-      <div class="card-body">
-          <div class="card-title">
-              <h3>Chat Group</h3>
-              <hr>
-          </div>
-          <div class="card-body">
-              <div class="messages">
-                  
-              </div>
-          </div>
-      </div>
-      <div class="card-footer">
-          <form @submit.prevent="sendMessage">
-              <div class="gorm-group">
-                  <label for="user">User:</label>
-                  <input type="text" v-model="user" class="form-control">
-              </div>
-              <div class="gorm-group pb-3">
-                  <label for="message">Message:</label>
-                  <input type="text" v-model="message" class="form-control">
-              </div>
-              <button type="submit" class="btn btn-success">Send</button>
-          </form>
-      </div>
-  </div> -->
   </div>
 </template>
 
@@ -145,41 +112,47 @@
 import io from "socket.io-client";
 import NavbarEvent from "./Navbar-event.vue";
 import axios from "axios";
-import moment from "moment"
+import moment from "moment";
 export default {
   name: "Room",
   props: ["e"],
+  components: { NavbarEvent },
   data() {
     return {
       loadList: [],
       newMessage: "",
-      user: "Ghassen",
+      user: "",
       winner: "",
       counter: 1,
       currentBidValue: 0,
-      // user: '',
-      //     message: '',
-      //     messages: [],
+
+      message: "",
+      messages: [],
       socket: io("localhost:5000"),
-       welcome:{},
-      
-     
+      welcome: {},
     };
   },
 
   methods: {
+    chat(e) {
+      e.preventDefault();
+      var us = JSON.parse(sessionStorage.getItem("user"));
+      this.user = us.username;
+      this.socket.emit("SEND_MESSAGE", {
+        user: this.user,
+        message: this.message,
+      });
+      this.message = "";
+    },
+
     sendMessage(e) {
-      // e.preventDefault();
-      // this.socket.emit("SEND_MESSAGE", {
-      //   user: this.user,
-      //   message: this.message,
-      // });
-      // this.message = "";
       e.preventDefault();
       if (
         Number(this.newMessage) > this.currentBidValue ||
         this.newMessage === "start"
       ) {
+        var us = JSON.parse(sessionStorage.getItem("user"));
+        this.user = us.username;
         this.socket.emit("message", {
           user: this.user,
           message: this.newMessage,
@@ -188,25 +161,20 @@ export default {
       this.message = "";
     },
   },
+
   mounted() {
-    
-  
-     if (this.e) {
-            this.welcome = JSON.parse(this.e) 
-            this.currentBidValue=this.welcome.startPrice
-            
-        }
+    if (this.e) {
+      this.welcome = JSON.parse(this.e);
+      this.currentBidValue = this.welcome.startPrice;
+    }
 
-        
-        
-       
-
-
-    // this.socket.on('MESSAGE', (data) => {
-    //     this.messages = [...this.messages, data];
-    //     // you can also do this.messages.push(data)
-    //     console.log(this.messages);
+    this.socket.on("MESSAGE", (data) => {
+      this.messages = [...this.messages, data];
+      //or this.messages.push(data)
+      console.log(this.messages);
+    });
     this.socket.on("message", (load) => {
+      console.log("load", load);
       if (load) {
         if (Number(load.message) > this.currentBidValue) {
           this.loadList = [load, ...this.loadList];
@@ -218,30 +186,23 @@ export default {
       this.counter = counter;
       if (counter === 1) {
         this.winner = this.loadList[this.loadList.length - 1].user;
-        var current=moment().format()
-        var id=this.welcome._id
-        
-         axios.put(`http://localhost:5000/closeEvent/${id}`, {date:current}).then((data) => {
-        console.log('update request',data).catch(err=>console.log(err))
-      });
+        var current = moment().format();
+        var id = this.welcome._id;
+
+        axios
+          .put(`http://localhost:5000/closeEvent/${id}`, { date: current })
+          .then((data) => {
+            console
+              .log("update request", data)
+              .catch((err) => console.log(err));
+          });
       }
     });
   },
-  components: { NavbarEvent },
 };
 </script>
 
 <style scoped>
-
- 
-
-
-
-
-
-
-
-
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
 
 * {
@@ -275,6 +236,10 @@ export default {
   background-color: #fff;
   height: 100%;
 }
+#chatgrouptitle {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
 
 .main {
   display: none;
@@ -296,29 +261,32 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .heading h2 {
- color: #5469d4;
+  color: #5469d4;
   text-decoration: unset;
   font-weight: 900;
-  margin-bottom: 50px;
+  margin-bottom: 17px;
 }
-#titleoftheitem{
-  margin-bottom: 30px;
+#titleoftheitem {
+  margin-bottom: 10px;
 }
-#currentbid{
-  margin-left:180px;
+#currentbid {
+  margin-left: 180px;
 }
-.messages{
+.messages {
   margin-top: 20px;
-  font-size:40px
+  font-size: 20px;
 }
 
 .social {
   display: flex;
   justify-content: center;
+}
+.form-control {
+  margin-top: 250px;
 }
 
 .social span {
@@ -462,7 +430,18 @@ select {
   background-color: #5469d4;
   color: #fff;
 }
-
+.sendmsg {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  outline: 0;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: #5469d4;
+  color: #fff;
+}
 
 .first {
   margin-top: 70px;
@@ -543,10 +522,10 @@ select {
   background-color: #ffffff;
   height: 100%;
 }
-.right-side{
-  outline: 1px solid red;
+.right-side {
+  border-left: 1px solid rgb(243, 224, 224);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
-
 
 .cover_image {
   position: relative;
@@ -572,8 +551,6 @@ select {
   }
 }
 
-
-
 *,
 *::before,
 *::after {
@@ -591,9 +568,9 @@ body {
   min-height: 100vh;
   padding: 20px;
 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
-
 
 /* other */
 .info {
@@ -605,7 +582,6 @@ p {
   color: #2e2e2e;
   margin-bottom: 20px;
 }
-
 
 /* block-$ */
 .block-effect {
@@ -625,7 +601,7 @@ p {
 }
 
 .block-reveal::after {
-  content: '';
+  content: "";
 
   width: 0%;
   height: 100%;
@@ -636,9 +612,9 @@ p {
   left: 0;
 
   background: var(--bc);
-  animation: revealingIn var(--td) var(--d) forwards, revealingOut var(--td) var(--t) forwards;
+  animation: revealingIn var(--td) var(--d) forwards,
+    revealingOut var(--td) var(--t) forwards;
 }
-
 
 /* animations */
 @keyframes revealBlock {
@@ -648,7 +624,6 @@ p {
 }
 
 @keyframes revealingIn {
-
   0% {
     width: 0;
   }
@@ -659,7 +634,6 @@ p {
 }
 
 @keyframes revealingOut {
-
   0% {
     transform: translateX(0);
   }
@@ -667,14 +641,200 @@ p {
   100% {
     transform: translateX(100%);
   }
-
 }
 
 .abs-site-link {
   position: fixed;
   bottom: 20px;
   left: 20px;
-  color: hsla(0, 0%, 0%, .6);
+  color: hsla(0, 0%, 0%, 0.6);
   font-size: 16px;
+}
+
+/*
+//////////////////////*/
+body {
+  background-color: #f4f7f6;
+  margin-top: 20px;
+}
+.card {
+  background: #fff;
+  transition: 0.5s;
+  border: 0;
+  margin-bottom: 30px;
+  border-radius: 0.55rem;
+  position: relative;
+  width: 100%;
+
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+}
+
+.chat .chat-history {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border-bottom: 2px solid #fff;
+}
+
+.chat .chat-history ul {
+  padding: 0;
+}
+
+.chat .chat-history ul li {
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.chat .chat-history ul li:last-child {
+  margin-bottom: 0px;
+}
+
+.chat .chat-history .message-data {
+  margin-bottom: 15px;
+}
+
+.chat .chat-history .message-data img {
+  border-radius: 40px;
+  width: 40px;
+}
+
+.chat .chat-history .message-data-time {
+  color: #434651;
+  padding-left: 6px;
+}
+
+.chat .chat-history .message {
+  color: #444;
+  padding: 18px 20px;
+  line-height: 26px;
+  font-size: 16px;
+  border-radius: 7px;
+  display: inline-block;
+  position: relative;
+}
+
+.chat .chat-history .message:after {
+  bottom: 100%;
+  left: 7%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-bottom-color: #fff;
+  border-width: 10px;
+  margin-left: -10px;
+}
+
+.chat .chat-history .my-message {
+  background: #efefef;
+}
+
+.chat .chat-history .my-message:after {
+  bottom: 100%;
+  left: 30px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-bottom-color: #efefef;
+  border-width: 10px;
+  margin-left: -10px;
+}
+
+.chat .chat-history .other-message {
+  background: #e8f1f3;
+  text-align: right;
+}
+
+.chat .chat-history .other-message:after {
+  border-bottom-color: #e8f1f3;
+  left: 93%;
+}
+
+.chat .chat-message {
+  padding: 20px;
+}
+
+.online,
+.offline,
+.me {
+  margin-right: 2px;
+  font-size: 8px;
+  vertical-align: middle;
+}
+
+.online {
+  color: #86c541;
+}
+
+.offline {
+  color: #e47297;
+}
+
+.me {
+  color: #1d8ecd;
+}
+
+.float-right {
+  float: right;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+@media only screen and (max-width: 767px) {
+  .chat-app .people-list {
+    height: 465px;
+    width: 100%;
+    overflow-x: auto;
+    background: #fff;
+    left: -400px;
+    display: none;
+  }
+  .chat-app .people-list.open {
+    left: 0;
+  }
+  .chat-app .chat {
+    margin: 0;
+  }
+  .chat-app .chat .chat-header {
+    border-radius: 0.55rem 0.55rem 0 0;
+  }
+  .chat-app .chat-history {
+    height: 300px;
+    overflow-x: auto;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+  .chat-app .chat-list {
+    height: 650px;
+    overflow-x: auto;
+  }
+  .chat-app .chat-history {
+    height: 600px;
+    overflow-x: auto;
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
+  .chat-app .chat-list {
+    height: 480px;
+    overflow-x: auto;
+  }
+  .chat-app .chat-history {
+    height: calc(100vh - 350px);
+    overflow-x: auto;
+  }
 }
 </style>
