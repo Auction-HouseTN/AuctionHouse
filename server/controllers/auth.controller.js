@@ -8,15 +8,15 @@ var bcrypt = require("bcryptjs");
 const { response } = require("express");
 
 exports.signup = (req, res) => {
-  const user = new User({
+  const user = {
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8)
-  });
+  };
 
 
     
-        user.save(err => {
+        User.create(user,err => {
           if (err) {
             res.status(500).send({ message: err });
             return;
@@ -31,14 +31,11 @@ exports.signin = (req, res) => {
   User.findOne({
     username: req.body.username
   })
-  
     .then(( user) => {
       
-
       if (!user) {
         return res.send({ message: "User Not found." });
       }
-
       var passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
@@ -50,17 +47,13 @@ exports.signin = (req, res) => {
           message: "Invalid Password!"
         });
       }
-
       var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400 // 24 hours
       });
-
-    
       res.status(200).send({
         id: user._id,
         username: user.username,
         email: user.email,
-      
         accessToken: token
       });
     });
