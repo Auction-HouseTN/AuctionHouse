@@ -2,11 +2,15 @@
   <div>
     <NavbarEvent />
     <div>
-       <h1>{{welcome.title}}</h1>
+      Title:
+      <h1>{{ welcome.title }}</h1>
+
+      Description:
+      <h3>{{ welcome.descriptions }}</h3>
     </div>
     <div>
       <h1>The Event Screen</h1>
-      <h1></h1> 
+      <h1></h1>
       <div>
         <h1 v-if="winner">
           Congratulation the winner is:<br />" {{ winner }} "
@@ -70,7 +74,8 @@ import axios from "axios";
 import moment from "moment"
 export default {
   name: "Room",
-  props: ['e'],
+  props: ["e"],
+  
   components: { NavbarEvent },
   data() {
     return {
@@ -85,12 +90,13 @@ export default {
           message: '',
           messages: [],
       socket: io("localhost:5000"),
+      welcome: "hhhhhhhh",
        welcome:{},
       
      
     };
   },
-    
+
   methods: {
 
     chat(e){
@@ -127,26 +133,18 @@ export default {
   },
 
   mounted() {
-    
-    
-  
-     if (this.e) {
-            this.welcome = JSON.parse(this.e) 
-            this.currentBidValue=this.welcome.startPrice
-            
-        }
+    if (this.e) {
+      this.welcome = JSON.parse(this.e);
+      // this.welcome =this.e;
+    }
+    console.log("plzzzzzzzzzzzzzzzzz work", this.welcome);
 
-        
-        
-       
-
-
-    this.socket.on('MESSAGE', (data) => {
-        this.messages = [...this.messages, data];
-        //or this.messages.push(data)
-        console.log(this.messages);
-    
-    })
+    //       this.events=this.$route.params.data
+    // console.log("pppppppp",this.events);
+    // this.socket.on('MESSAGE', (data) => {
+    //     this.messages = [...this.messages, data];
+    //     // you can also do this.messages.push(data)
+    //     console.log(this.messages);
     this.socket.on("message", (load) => {
       console.log("load",load);
       if (load) {
@@ -169,10 +167,11 @@ export default {
       });
       }
     });
+  },
+  components: { NavbarEvent },
+};
     
-  }
- 
-}
+
 
 
 
