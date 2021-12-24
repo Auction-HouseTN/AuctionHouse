@@ -9,9 +9,11 @@ const { response } = require("express");
 
 exports.signup = (req, res) => {
   const user = {
+    name:req.body.name,
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8)
+    
   };
 
     
