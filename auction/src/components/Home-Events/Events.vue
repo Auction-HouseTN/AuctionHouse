@@ -1,7 +1,12 @@
 <template>
+<div class="allcomponent">
 <ul >
   <events-child  />
 </ul>
+</div>
+
+
+
   
 </template>
 
@@ -13,6 +18,8 @@ name:"Events",
 }
 </script>
 
-<style>
+<style >
+
+
 
 </style>

@@ -1,12 +1,16 @@
 <template>
+<div><Events/>
 
+</div>
  
-<Events/>
+
+
 
 </template>
 
 <script>
 import Events from "./Home-Events/Events.vue";
+
 
 export default {
     name: "HelloWorld",
