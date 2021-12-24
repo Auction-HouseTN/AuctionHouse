@@ -2402,7 +2402,12 @@
     "no-case" "^2.2.0"
     "upper-case" "^1.1.1"
 
-"camelcase@^5.0.0", "camelcase@^5.3.1":
+"camelcase@^5.0.0":
+  "integrity" "sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg=="
+  "resolved" "https://registry.npmjs.org/camelcase/-/camelcase-5.3.1.tgz"
+  "version" "5.3.1"
+
+"camelcase@^5.3.1":
   "integrity" "sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg=="
   "resolved" "https://registry.npmjs.org/camelcase/-/camelcase-5.3.1.tgz"
   "version" "5.3.1"
@@ -8492,6 +8497,11 @@
   "version" "4.0.12"
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.18"
+
+"vue-stripe-checkout@^3.5.15":
+  "integrity" "sha512-hmFNuAn2gD7LjyqCbSvhuziAcYPN6xyy/FvUNn1ExHfvJvaTeInczF8aLkGTuVKXCIV6mG8IU6T6VrtmqL8s1g=="
+  "resolved" "https://registry.npmjs.org/vue-stripe-checkout/-/vue-stripe-checkout-3.5.15.tgz"
+  "version" "3.5.15"
 
 "vue-style-loader@^4.1.0", "vue-style-loader@^4.1.2":
   "integrity" "sha512-sFuh0xfbtpRlKfm39ss/ikqs9AbKCoXZBpHeVZ8Tx650o0k0q/YCM7FRvigtxpACezfq6af+a7JeqVTWvncqDg=="

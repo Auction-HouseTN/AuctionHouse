@@ -2,11 +2,15 @@
   <div>
     <NavbarEvent />
     <div>
-       <h1>{{welcome.title}}</h1>
+      Title:
+      <h1>{{ welcome.title }}</h1>
+
+      Description:
+      <h3>{{ welcome.descriptions }}</h3>
     </div>
     <div>
       <h1>The Event Screen</h1>
-      <h1></h1> 
+      <h1></h1>
       <div>
         <h1 v-if="winner">
           Congratulation the winner is:<br />" {{ winner }} "
@@ -58,9 +62,7 @@
           </form>
       </div>
   </div> -->
-  
   </div>
-  
 </template>
 
 <script>
@@ -68,7 +70,7 @@ import io from "socket.io-client";
 import NavbarEvent from "./Navbar-event.vue";
 export default {
   name: "Room",
-  props: ['e'],
+  props: ["e"],
   data() {
     return {
       loadList: [],
@@ -81,13 +83,11 @@ export default {
       //     message: '',
       //     messages: [],
       socket: io("localhost:5000"),
-       welcome:{},
-     
+      welcome: "hhhhhhhh",
     };
   },
-    
+
   methods: {
-      
     sendMessage(e) {
       // e.preventDefault();
       // this.socket.emit("SEND_MESSAGE", {
@@ -109,16 +109,14 @@ export default {
     },
   },
   mounted() {
-  
-     if (this.e) {
-            this.welcome = JSON.parse(this.e) 
-            
-        }
-        console.log("jjjj",this.welcome)
-       
+    if (this.e) {
+      this.welcome = JSON.parse(this.e);
+      // this.welcome =this.e;
+    }
+    console.log("plzzzzzzzzzzzzzzzzz work", this.welcome);
 
-//       this.events=this.$route.params.data
-// console.log("pppppppp",this.events);
+    //       this.events=this.$route.params.data
+    // console.log("pppppppp",this.events);
     // this.socket.on('MESSAGE', (data) => {
     //     this.messages = [...this.messages, data];
     //     // you can also do this.messages.push(data)
@@ -137,10 +135,8 @@ export default {
         this.winner = this.loadList[this.loadList.length - 1].user;
       }
     });
-    
   },
   components: { NavbarEvent },
-  
 };
 </script>
 

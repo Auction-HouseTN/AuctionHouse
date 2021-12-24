@@ -107,8 +107,8 @@ export default {
         title: this.title,
         descriptions: this.descriptions,
         img: this.img,
-        money: this.money,
-        date: this.date,
+        startPrice: this.money,
+        StartDate: this.date,
       };
       console.log(body);
       axios.post("http://localhost:5000/create", body).then((data) => {
