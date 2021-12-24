@@ -103,6 +103,7 @@ export default {
   },
   methods: {
     send() {
+     
       var body = {
         title: this.title,
         descriptions: this.descriptions,

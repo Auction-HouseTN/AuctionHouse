@@ -17,7 +17,7 @@
               <h3 class="loginword">Login</h3>
               <div class="login__field">
                 <i class="login__icon fas fa-user"></i>
-                <input
+                <input v-model="username"
                   type="text"
                   class="login__input"
                   placeholder="User name / Email"
@@ -25,13 +25,13 @@
               </div>
               <div class="login__field">
                 <i class="login__icon fas fa-lock"></i>
-                <input
+                <input v-model="password"
                   type="password"
                   class="login__input"
                   placeholder="Password"
                 />
               </div>
-              <button type="submit" class="button login__submit">
+              <button type="submit" class="button login__submit" v-on:click="login">
                 <router-link class="nav-link" to="/">Log In Now</router-link>
                 <span class="button__text"></span>
                 <i class="button__icon fas fa-chevron-right"></i>
@@ -65,13 +65,36 @@
       </div>
     </div>
   </div>
-  </div>
+</div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Login",
-};
+  username:'',
+  password:"",
+  user:{},
+
+  methods:{
+    login:function(){
+      console.log('usename',this.username)
+      console.log('password',this.password)
+      axios.post("http://localhost:5000/api/auth/signin",{username:this.username,password:this.password}).then((res)=>{
+  
+        var user=JSON.stringify(res.data)
+        console.log(user)
+          sessionStorage.setItem('user',user)
+   
+        
+        console.log("session",sessionStorage.getItem('user'))
+        
+        }
+      )}
+    }
+  }
+
 </script>
 
 <style scoped>
