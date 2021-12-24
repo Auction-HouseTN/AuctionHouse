@@ -14,7 +14,6 @@ exports.signup = (req, res) => {
     password: bcrypt.hashSync(req.body.password, 8)
   };
 
-
     
         User.create(user,err => {
           if (err) {
@@ -33,28 +32,39 @@ exports.signin = (req, res) => {
   })
     .then(( user) => {
       
-      if (!user) {
-        return res.send({ message: "User Not found." });
-      }
+
+
       var passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
       );
 
-      if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Invalid Password!"
-        });
+      if (!user || !passwordIsValid) {
+        return res.json({ message: "check again" });
       }
+
+
+     
+      
+      
+
       var token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400 // 24 hours
       });
-      res.status(200).send({
+        
+    console.log({
+      id: user._id,
+      username: user.username,
+      email: user.email,
+    
+      accessToken: token
+    });
+      res.send({
+
         id: user._id,
         username: user.username,
         email: user.email,
         accessToken: token
       });
-    });
+    }).catch(err=>console.log(err))
 };
