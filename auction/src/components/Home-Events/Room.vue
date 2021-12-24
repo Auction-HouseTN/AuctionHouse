@@ -107,6 +107,7 @@ export default {
     },
   },
   mounted() {
+    
   
      if (this.e) {
             this.welcome = JSON.parse(this.e) 
