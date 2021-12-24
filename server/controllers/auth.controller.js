@@ -5,6 +5,7 @@ const User = db.user;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const { response } = require("express");
 
 exports.signup = (req, res) => {
   const user = new User({
@@ -30,15 +31,12 @@ exports.signin = (req, res) => {
   User.findOne({
     username: req.body.username
   })
-
-    .exec((err, user) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
+  
+    .then(( user) => {
+      
 
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        return res.send({ message: "User Not found." });
       }
 
       var passwordIsValid = bcrypt.compareSync(
@@ -57,16 +55,12 @@ exports.signin = (req, res) => {
         expiresIn: 86400 // 24 hours
       });
 
-    //   var authorities = [];
-
-    //   for (let i = 0; i < user.roles.length; i++) {
-    //     authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
-    //   }
+    
       res.status(200).send({
         id: user._id,
         username: user.username,
         email: user.email,
-        // roles: authorities,
+      
         accessToken: token
       });
     });

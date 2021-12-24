@@ -2583,7 +2583,8 @@
   dependencies:
     "restore-cursor" "^2.0.0"
 
-"cli-cursor@^3.1.0":
+"cli-cursor@
+^3.1.0":
   "integrity" "sha512-I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw=="
   "resolved" "https://registry.npmjs.org/cli-cursor/-/cli-cursor-3.1.0.tgz"
   "version" "3.1.0"
