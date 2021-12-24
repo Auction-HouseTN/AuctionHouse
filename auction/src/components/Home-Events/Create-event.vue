@@ -55,7 +55,7 @@
               </div>
               <div class="form-group">
                 <label>Date of the Event :</label>
-                <input type="date" v-model="date" ctype="date" />
+                <input type="datetime-local" v-model="date" ctype="date" />
               </div>
               <div class="form-group">
                 <p class="text-center">
@@ -103,6 +103,7 @@ export default {
   },
   methods: {
     send() {
+     
       var body = {
         title: this.title,
         descriptions: this.descriptions,

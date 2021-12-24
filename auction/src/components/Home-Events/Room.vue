@@ -17,11 +17,11 @@
         </h1>
         <h3 v-if="counter">Time :{{ counter }}</h3>
 
-        <tr v-if="loadList[0]">
+        <tr v-if="currentBidValue ">
           <h2>
             <td>
-              The Greatest Bid <br />
-              {{ loadList[0].message }}
+              Current Bid Amount <br />
+              {{ currentBidValue }}
             </td>
           </h2>
         </tr>
@@ -31,12 +31,14 @@
 
         <ul>
           <li v-for="load in loadList" :key="load.message">
-            {{ load.message }}
+            {{load.user}} bid for {{ load.message }}
           </li>
         </ul>
       </div>
     </div>
-    <!-- <div class="card mt-3">
+<!-- chat block -->
+
+     <div class="card mt-3">
       <div class="card-body">
           <div class="card-title">
               <h3>Chat Group</h3>
@@ -49,58 +51,79 @@
           </div>
       </div>
       <div class="card-footer">
-          <form @submit.prevent="sendMessage">
-              <div class="gorm-group">
-                  <label for="user">User:</label>
-                  <input type="text" v-model="user" class="form-control">
-              </div>
+          <form @submit.prevent="chat">
+              <h1 v-if="load">{{load.user}}</h1>
+
               <div class="gorm-group pb-3">
                   <label for="message">Message:</label>
                   <input type="text" v-model="message" class="form-control">
               </div>
               <button type="submit" class="btn btn-success">Send</button>
           </form>
+
+          <div v-for="(mess,i) in messages" :key="i">{{mess.user}} said {{mess.message}}</div>
       </div>
-  </div> -->
+  </div> 
   </div>
 </template>
 
 <script>
 import io from "socket.io-client";
 import NavbarEvent from "./Navbar-event.vue";
+import axios from "axios";
+import moment from "moment"
 export default {
   name: "Room",
   props: ["e"],
+  
+  components: { NavbarEvent },
   data() {
     return {
       loadList: [],
       newMessage: "",
-      user: "Ghassen",
+      user: "",
       winner: "",
       counter: 1,
       currentBidValue: 0,
-      // user: '',
-      //     message: '',
-      //     messages: [],
+      
+      
+          message: '',
+          messages: [],
       socket: io("localhost:5000"),
       welcome: "hhhhhhhh",
+       welcome:{},
+      
+     
     };
   },
 
   methods: {
+
+    chat(e){
+
+   e.preventDefault();
+    var us=JSON.parse(sessionStorage.getItem('user'))
+        this.user=us.username
+      this.socket.emit("SEND_MESSAGE", {
+        user: this.user,
+        message: this.message,
+      });
+      this.message = "";
+
+    },
+      
     sendMessage(e) {
-      // e.preventDefault();
-      // this.socket.emit("SEND_MESSAGE", {
-      //   user: this.user,
-      //   message: this.message,
-      // });
-      // this.message = "";
+   
       e.preventDefault();
       if (
         Number(this.newMessage) > this.currentBidValue ||
         this.newMessage === "start"
       ) {
+
+        var us=JSON.parse(sessionStorage.getItem('user'))
+        this.user=us.username
         this.socket.emit("message", {
+          
           user: this.user,
           message: this.newMessage,
         });
@@ -108,6 +131,7 @@ export default {
       this.message = "";
     },
   },
+
   mounted() {
     if (this.e) {
       this.welcome = JSON.parse(this.e);
@@ -122,10 +146,12 @@ export default {
     //     // you can also do this.messages.push(data)
     //     console.log(this.messages);
     this.socket.on("message", (load) => {
+      console.log("load",load);
       if (load) {
         if (Number(load.message) > this.currentBidValue) {
-          this.loadList = [...this.loadList, load];
+          this.loadList = [load, ...this.loadList];
           this.currentBidValue = Number(load.message);
+          
         }
       }
     });
@@ -133,11 +159,23 @@ export default {
       this.counter = counter;
       if (counter === 1) {
         this.winner = this.loadList[this.loadList.length - 1].user;
+        var current=moment().format()
+        var id=this.welcome._id
+        
+         axios.put(`http://localhost:5000/closeEvent/${id}`, {date:current}).then((data) => {
+        console.log('update request',data).catch(err=>console.log(err))
+      });
       }
     });
   },
   components: { NavbarEvent },
 };
+    
+
+
+
+
+
 </script>
 
 <style></style>
