@@ -27,12 +27,14 @@
 
         <ul>
           <li v-for="load in loadList" :key="load.message">
-            {{ load.message }}
+            {{load.user}} bid for {{ load.message }}
           </li>
         </ul>
       </div>
     </div>
-    <!-- <div class="card mt-3">
+<!-- chat block -->
+
+     <div class="card mt-3">
       <div class="card-body">
           <div class="card-title">
               <h3>Chat Group</h3>
@@ -45,19 +47,19 @@
           </div>
       </div>
       <div class="card-footer">
-          <form @submit.prevent="sendMessage">
-              <div class="gorm-group">
-                  <label for="user">User:</label>
-                  <input type="text" v-model="user" class="form-control">
-              </div>
+          <form @submit.prevent="chat">
+              <h1 v-if="load">{{load.user}}</h1>
+
               <div class="gorm-group pb-3">
                   <label for="message">Message:</label>
                   <input type="text" v-model="message" class="form-control">
               </div>
               <button type="submit" class="btn btn-success">Send</button>
           </form>
+
+          <div v-for="(mess,i) in messages" :key="i">{{mess.user}} said {{mess.message}}</div>
       </div>
-  </div> -->
+  </div> 
   </div>
 </template>
 
@@ -69,17 +71,19 @@ import moment from "moment"
 export default {
   name: "Room",
   props: ['e'],
+  components: { NavbarEvent },
   data() {
     return {
       loadList: [],
       newMessage: "",
-      user: "Ghassen",
+      user: "",
       winner: "",
       counter: 1,
       currentBidValue: 0,
-      // user: '',
-      //     message: '',
-      //     messages: [],
+      
+      
+          message: '',
+          messages: [],
       socket: io("localhost:5000"),
        welcome:{},
       
@@ -88,20 +92,32 @@ export default {
   },
     
   methods: {
+
+    chat(e){
+
+   e.preventDefault();
+    var us=JSON.parse(sessionStorage.getItem('user'))
+        this.user=us.username
+      this.socket.emit("SEND_MESSAGE", {
+        user: this.user,
+        message: this.message,
+      });
+      this.message = "";
+
+    },
       
     sendMessage(e) {
-      // e.preventDefault();
-      // this.socket.emit("SEND_MESSAGE", {
-      //   user: this.user,
-      //   message: this.message,
-      // });
-      // this.message = "";
+   
       e.preventDefault();
       if (
         Number(this.newMessage) > this.currentBidValue ||
         this.newMessage === "start"
       ) {
+
+        var us=JSON.parse(sessionStorage.getItem('user'))
+        this.user=us.username
         this.socket.emit("message", {
+          
           user: this.user,
           message: this.newMessage,
         });
@@ -109,7 +125,9 @@ export default {
       this.message = "";
     },
   },
+
   mounted() {
+    
     
   
      if (this.e) {
@@ -123,15 +141,19 @@ export default {
        
 
 
-    // this.socket.on('MESSAGE', (data) => {
-    //     this.messages = [...this.messages, data];
-    //     // you can also do this.messages.push(data)
-    //     console.log(this.messages);
+    this.socket.on('MESSAGE', (data) => {
+        this.messages = [...this.messages, data];
+        //or this.messages.push(data)
+        console.log(this.messages);
+    
+    })
     this.socket.on("message", (load) => {
+      console.log("load",load);
       if (load) {
         if (Number(load.message) > this.currentBidValue) {
           this.loadList = [load, ...this.loadList];
           this.currentBidValue = Number(load.message);
+          
         }
       }
     });
@@ -148,10 +170,13 @@ export default {
       }
     });
     
-  },
-  components: { NavbarEvent },
-  
-};
+  }
+ 
+}
+
+
+
+
 </script>
 
 <style></style>
