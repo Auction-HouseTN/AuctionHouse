@@ -117,6 +117,8 @@ export default {
             this.currentBidValue=this.welcome.startPrice
             
         }
+
+        
         
        
 
