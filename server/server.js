@@ -34,7 +34,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const users = require("./routes/user.routes");
+
 
 // {
 //   user: {
@@ -160,7 +160,7 @@ db.mongoose
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to auction house application." });
 });
 
 // routes
@@ -170,6 +170,37 @@ require("./routes/user.routes")(app);
 // set port, listen for requests
 app.get("/events", (req, res) => {
   Db.event.find().then((result) => {
+    res.json(result);
+  });
+});
+app.put(`/closeEvent/:id`, (req, res) => {
+  console.log(req.params);
+  console.log(req.body);
+  Db.event
+    .findByIdAndUpdate(req.params.id, { endDate: req.body.date })
+    .then((res) => {
+      console.log("update done");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+app.get("/balance", (req, res) => {
+  Db.event.findOne().then((result) => {
+    res.json(result);
+  });
+});
+app.post("/money", (req, res) => {
+  console.log("hihihihihihihihihihihi", req.body);
+  Db.event.create(req.body).then((result) => {
+    res.json(result);
+  });
+});
+app.post("/create", (req, res) => {
+  console.log("oooooooooooooooo", req.body);
+
+  Db.event.create(req.body).then((result) => {
+    console.log("event added");
     res.json(result);
   });
 });

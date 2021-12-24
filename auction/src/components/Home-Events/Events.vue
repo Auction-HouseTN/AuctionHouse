@@ -19,9 +19,7 @@ name:"Events",
 </script>
 
 <style >
-.allcomponent{
-  
-}
+
 
 
 </style>

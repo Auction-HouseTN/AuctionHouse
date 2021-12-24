@@ -13,9 +13,10 @@
         <p class="information">
         {{ item.descriptions }}
         </p>
+<h3 > {{getTime(item.StartDate)}} </h3>
 
-        <div class="control">
-          <button class="btn">
+        <div class="control" >
+          <button class="btn" :disabled="disableTimer(item.StartDate,item.endtDate)">
             <span class="price">{{ item.startPrice }}Dt</span>
             <span class="shopping-cart"
               ><i class="fa fa-shopping-cart" aria-hidden="true"></i
@@ -101,7 +102,9 @@ export default {
   mounted() {
     axios.get("http://localhost:5000/events").then(({ data }) => {
       this.events = data;
+      console.log(this.events);
     });
+    
    
   
   
@@ -123,10 +126,12 @@ export default {
     getTime(time){
      return  moment(time).fromNow()
     },
-    disableTimer(time){
-      if(time>moment().format()){return true}
+    disableTimer(time,end){
+      
+      if(time>moment().format()||end!==undefined){return true}
+      
       else return false
-
+   
     }
   },
   components: {
