@@ -82,6 +82,7 @@ export default {
       //     messages: [],
       socket: io("localhost:5000"),
        welcome:{},
+      
      
     };
   },
@@ -109,6 +110,7 @@ export default {
     },
   },
   mounted() {
+    
   
      if (this.e) {
             this.welcome = JSON.parse(this.e) 
@@ -118,8 +120,7 @@ export default {
         
        
 
-//       this.events=this.$route.params.data
-// console.log("pppppppp",this.events);
+
     // this.socket.on('MESSAGE', (data) => {
     //     this.messages = [...this.messages, data];
     //     // you can also do this.messages.push(data)
@@ -138,7 +139,7 @@ export default {
         this.winner = this.loadList[this.loadList.length - 1].user;
         var current=moment().format()
         var id=this.welcome._id
-        console.log(id);
+        
          axios.put(`http://localhost:5000/closeEvent/${id}`, {date:current}).then((data) => {
         console.log('update request',data).catch(err=>console.log(err))
       });
