@@ -17,6 +17,10 @@ const User = mongoose.model(
     password : {
         type: String,
         required: true,
+    },
+    balance :{
+      type:Number,
+      default:0
     }
     // roles: [
     //   {

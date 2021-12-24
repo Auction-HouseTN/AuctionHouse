@@ -24,7 +24,9 @@
                      <router-link to='/aboutus'>About us</router-link>
                     </li>
                     <li id="bo">
-                     <router-link to='/login'>Log out</router-link> 
+                      <button @click="logout">
+                     <router-link to='/login' >Log out</router-link> 
+                      </button>
                     </li>
                  </ul>
                 </div>
@@ -81,6 +83,9 @@ export default {
     mounted(){
      
     },
+    methods:{
+      logout :function(){sessionStorage.removeItem('user')}
+    }
     
 }
 </script>
