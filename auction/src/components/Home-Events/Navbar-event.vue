@@ -25,8 +25,9 @@
                     </li>
                     <li id="bo">
                      <router-link to='/login'>Log out</router-link> 
-                    </li>
+                    </li> 
                  </ul>
+                 <span class="dot"></span>
                 </div>
             </div>    
         </div>
@@ -145,7 +146,13 @@ export default {
 .nav div.main_list ul li a:hover{
     color: #97959A;
 }
-#myUL{
-
+.dot {
+  height: 18px;
+  width: 18px;
+  background-color: rgb(96, 177, 93);
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 660px;
+  
 }
 </style>

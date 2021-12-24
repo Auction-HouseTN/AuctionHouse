@@ -6,13 +6,11 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-     <div v-for="item in events" :key="item" id="container">
+    <div v-for="item in events" :key="item" id="container">
       <div class="product-details">
         <h1>{{ item.title }}</h1>
 
-        <p class="information">
-        {{ item.descriptions }}
-        </p>
+        <p class="information">start's in {{ getTime(item.StartDate) }}</p>
 
         <div class="control">
           <button class="btn">
@@ -20,18 +18,17 @@
             <span class="shopping-cart"
               ><i class="fa fa-shopping-cart" aria-hidden="true"></i
             ></span>
-            <router-link class="buy" :to="{ name: 'Room', params: { e:JSON.stringify(item)} }"
-          >join event</router-link
-        >
-            
+            <router-link
+              class="buy"
+              :to="{ name: 'Room', params: { e: JSON.stringify(item) } }"
+              >Join Auction</router-link
+            >
           </button>
         </div>
       </div>
 
       <div class="product-image">
-        <img
-          :src="item.img" alt="Product image"
-        />
+        <img :src="item.img" alt="Product image" />
 
         <div class="info">
           <h2>Description</h2>
@@ -41,13 +38,9 @@
           </ul>
         </div>
       </div>
-      </div>
-      
+    </div>
 
-
-
-
-   <!--<ul v-for="item in events" :key="item" class="card" style="width: 500px">
+    <!--<ul v-for="item in events" :key="item" class="card" style="width: 500px">
       <label>The Seller is :</label>
       <h2 class="card-title">{{ item.ownerid }}</h2>
       <label>The product is : </label>
@@ -69,17 +62,17 @@
         >
       </button>
     </ul>-->
-     <!-- <p>hello</p>-->
+    <!-- <p>hello</p>-->
 
-      <!-- <button> 
+    <!-- <button> 
         <router-link class="nav-link" to="auction">Join to This event</router-link>
         
       </button> -->
-      <!-- <button v-on:click="getId(item)">
+    <!-- <button v-on:click="getId(item)">
         <router-link :to="{ name: 'Room', params: { e:JSON.stringify(item)} }">
           Join to event
         </router-link> -->
-      <!-- </button> 
+    <!-- </button> 
     </ul>-->
   </div>
 </template>
@@ -87,13 +80,13 @@
 <script>
 import axios from "axios";
 import NavbarEvent from "./Navbar-event.vue";
-import moment from "moment"
+import moment from "moment";
 export default {
   name: "EventsChild",
 
   data() {
     return {
-      e:{},
+      e: {},
       msg: "",
       events: [],
     };
@@ -102,10 +95,6 @@ export default {
     axios.get("http://localhost:5000/events").then(({ data }) => {
       this.events = data;
     });
-   
-  
-  
-  
   },
   methods: {
     // getId(id) {
@@ -120,14 +109,14 @@ export default {
     //   this.$router.push("/auction",params)
     //   // this.$router.push({name:"/auction",params:{data:this.item}})
     // }
-    getTime(time){
-     return  moment(time).fromNow()
+    getTime(time) {
+      return moment(time).fromNow();
     },
-    disableTimer(time){
-      if(time>moment().format()){return true}
-      else return false
-
-    }
+    disableTimer(time) {
+      if (time > moment().format()) {
+        return true;
+      } else return false;
+    },
   },
   components: {
     NavbarEvent,
@@ -137,14 +126,13 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bree+Serif&family=EB+Garamond:ital,wght@0,500;1,800&display=swap");
+
 .allcomponent{
-  background: linear-gradient(-45deg, #5D6C8C, #B8BDD9,#79D9D9, #5D6C8C);
-  background-size: 400% 400%;
-  animation: gradient 10s ease infinite;
-  height: 100%;
+  background-image: url("https://images.unsplash.com/photo-1528731708534-816fe59f90cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bWluaW1hbCUyMHdoaXRlJTIwYmFja2dyb3VuZHxlbnwwfHwwfHw%3D&w=1000&q=80");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 #container {
-  
   box-shadow: 0 15px 30px 1px grey;
   background: rgba(255, 255, 255, 0.9);
   text-align: center;
@@ -154,9 +142,9 @@ export default {
   margin-top: 14%;
   height: 350px;
   width: 700px;
-  background-color:#D9D2C5;
-  
+  background-color:rgba(248, 232, 253, 0.9);
 }
+
 
 .product-details {
   position: relative;
@@ -166,17 +154,16 @@ export default {
   height: 100%;
   float: left;
   width: 40%;
- 
 }
 
 #container .product-details h1 {
   font-family: "Bebas Neue", cursive;
   display: inline-block;
   position: relative;
-  font-size: 30px;
+  font-size: 35px;
   color: #344055;
-  margin-bottom:30px;
-  margin-left:20px;
+  margin-bottom: 30px;
+  margin-left: 20px;
 }
 
 #container .product-details h1:before {
@@ -187,7 +174,7 @@ export default {
   transform: translate(25px, -15px);
   font-family: "Bree Serif", serif;
   display: inline-block;
-  
+
   border-radius: 5px;
   font-size: 14px;
   padding: 5px;
@@ -196,18 +183,12 @@ export default {
   animation: chan-sh 6s ease infinite;
 }
 
-.hint-star {
-  display: inline-block;
-  margin-left: 0.5em;
-  color: gold;
-  width: 50%;
-}
 
 #container .product-details > p {
   font-family: "EB Garamond", serif;
   text-align: center;
-  font-size: 18px;
-  color: #7d7d7d;
+  font-size: 30px;
+  color: #0d0d0d;
 }
 .control {
   position: absolute;
@@ -217,7 +198,7 @@ export default {
 .btn {
   transform: translateY(0px);
   transition: 0.3s linear;
-  background: #809fff;
+  
   border-radius: 5px;
   position: relative;
   overflow: hidden;
@@ -231,7 +212,7 @@ export default {
 
 .btn:hover {
   transform: translateY(-6px);
-  background: #1a66ff;
+  background: #595b5f;
 }
 
 .btn span {
@@ -252,6 +233,9 @@ export default {
 .btn .price {
   transform: translateX(-10%);
   padding-right: 15px;
+}
+a .buy{
+  color:rgb(131, 130, 130);
 }
 
 .btn .shopping-cart {
@@ -301,7 +285,7 @@ export default {
   line-height: 1.8;
   text-align: left;
   font-size: 105%;
-  
+
   color: #fff;
   height: 100%;
   width: 100%;
@@ -336,32 +320,26 @@ backgroung
 /*//////////////////////
 navbar
 //////////////////////////*/
-.allcomponent{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Lato', sans-serif;
-  font-family: 'Oswald', sans-serif;
-}
-.wrapper{
+
+.wrapper {
   position: fixed;
   top: 0;
   /*left: -100%;*/
   right: -100%;
   height: 100%;
   width: 100%;
-  background: linear-gradient(-45deg, #68788C, #979DA6, #F2EEB3, #F2D64B);
+  background: linear-gradient(-45deg, #68788c, #979da6, #f2eeb3, #f2d64b);
   opacity: 0.8;
   /*background: linear-gradient(90deg, #f92c78, #4114a1);*/
   /* background: linear-gradient(375deg, #1cc7d0, #2ede98); */
- /* background: linear-gradient(-45deg, #e3eefe 0%, #efddfb 100%);*/
+  /* background: linear-gradient(-45deg, #e3eefe 0%, #efddfb 100%);*/
   transition: all 0.6s ease-in-out;
 }
-#active:checked ~ .wrapper{
+#active:checked ~ .wrapper {
   /*left: 0;*/
-  right:0;
+  right: 0;
 }
-.menu-btn{
+.menu-btn {
   position: absolute;
   z-index: 2;
   right: 20px;
@@ -377,49 +355,48 @@ navbar
   /*color: #fff;*/
   /*background: linear-gradient(90deg, #f92c78, #4114a1);*/
   /* background: linear-gradient(375deg, #1cc7d0, #2ede98); */
- /* background: linear-gradient(-45deg, #e3eefe 0%, #efddfb 100%); */
+  /* background: linear-gradient(-45deg, #e3eefe 0%, #efddfb 100%); */
   transition: all 0.3s ease-in-out;
 }
 .menu-btn span,
 .menu-btn:before,
-.menu-btn:after{
-	content: "";
-	position: absolute;
-	top: calc(50% - 1px);
-	left: 30%;
-	width: 40%;
-	border-bottom: 2px solid #000;
-	transition: transform .6s cubic-bezier(0.215, 0.61, 0.355, 1);
+.menu-btn:after {
+  content: "";
+  position: absolute;
+  top: calc(50% - 1px);
+  left: 30%;
+  width: 40%;
+  border-bottom: 2px solid #000;
+  transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
-.menu-btn:before{
+.menu-btn:before {
   transform: translateY(-8px);
 }
-.menu-btn:after{
+.menu-btn:after {
   transform: translateY(8px);
 }
 
-
 .close {
-	z-index: 1;
-	width: 100%;
-	height: 100%;
-	pointer-events: none;
-	transition: background .6s;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: background 0.6s;
 }
 
 /* closing animation */
 #active:checked + .menu-btn span {
-	transform: scaleX(0);
+  transform: scaleX(0);
 }
 #active:checked + .menu-btn:before {
-	transform: rotate(45deg);
+  transform: rotate(45deg);
   border-color: #fff;
 }
 #active:checked + .menu-btn:after {
-	transform: rotate(-45deg);
+  transform: rotate(-45deg);
   border-color: #fff;
 }
-.wrapper ul{
+.wrapper ul {
   position: absolute;
   top: 60%;
   left: 45%;
@@ -428,11 +405,10 @@ navbar
   list-style: none;
   text-align: center;
 }
-.wrapper ul li{
+.wrapper ul li {
   height: 10%;
-  
 }
-.wrapper ul li a{
+.wrapper ul li a {
   text-decoration: none;
   font-size: 35px;
   font-weight: 500;
@@ -445,13 +421,13 @@ navbar
   opacity: 0;
   width: 400px;
   transition: all 0.3s ease;
-  transition: transform .6s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
-.wrapper ul li a:after{
+.wrapper ul li a:after {
   position: absolute;
   content: "";
   background: #fff;
-   /*background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);*/
+  /*background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);*/
   /*background: linear-gradient(375deg, #1cc7d0, #2ede98);*/
   width: 100%;
   height: 100%;
@@ -462,16 +438,16 @@ navbar
   z-index: -1;
   transition: transform 0.3s ease;
 }
-.wrapper ul li a:hover:after{
+.wrapper ul li a:hover:after {
   transform: scaleY(1);
 }
-.wrapper ul li a:hover{
+.wrapper ul li a:hover {
   color: #1a73e8;
 }
-input[type="checkbox"]{
+input[type="checkbox"] {
   display: none;
 }
-.content{
+.content {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -481,26 +457,26 @@ input[type="checkbox"]{
   width: 100%;
   color: #202020;
 }
-.content .title{
+.content .title {
   font-size: 40px;
   font-weight: 700;
 }
-.content p{
+.content p {
   font-size: 35px;
   font-weight: 600;
 }
 
-#active:checked ~ .wrapper ul li a{
+#active:checked ~ .wrapper ul li a {
   opacity: 1;
 }
-.wrapper ul li a{
+.wrapper ul li a {
   transition: opacity 1.2s, transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
   transform: translateX(100px);
 }
-#active:checked ~ .wrapper ul li a{
-	transform: none;
-	transition-timing-function: ease, cubic-bezier(.1,1.3,.3,1); /* easeOutBackを緩めた感じ */
-   transition-delay: .6s;
+#active:checked ~ .wrapper ul li a {
+  transform: none;
+  transition-timing-function: ease, cubic-bezier(0.1, 1.3, 0.3, 1); /* easeOutBackを緩めた感じ */
+  transition-delay: 0.6s;
   transform: translateX(-100px);
 }
 /*
