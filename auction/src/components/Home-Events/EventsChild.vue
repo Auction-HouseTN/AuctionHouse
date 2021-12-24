@@ -10,10 +10,14 @@
       <div class="product-details">
         <h1>{{ item.title }}</h1>
 
-        <p class="information">start's in {{ getTime(item.StartDate) }}</p>
+        <p class="information">start's {{ getTime(item.StartDate) }}</p>
+        <!-- <p class="information">
+        {{ item.descriptions }}
+        </p> -->
+<!-- <h3 > {{getTime(item.StartDate)}} </h3> -->
 
-        <div class="control">
-          <button class="btn">
+        <div class="control" >
+          <button class="btn" :disabled="disableTimer(item.StartDate,item.endtDate)">
             <span class="price">{{ item.startPrice }}Dt</span>
             <span class="shopping-cart"
               ><i class="fa fa-shopping-cart" aria-hidden="true"></i
@@ -31,7 +35,7 @@
         <img :src="item.img" alt="Product image" />
 
         <div class="info">
-          <h2>Description</h2>
+          <h2>Info</h2>
           <ul>
             <li><strong>owner : </strong>{{ item.ownerid }}</li>
             <li><strong>Date : </strong>{{ item.StartDate }}</li>
@@ -94,7 +98,13 @@ export default {
   mounted() {
     axios.get("http://localhost:5000/events").then(({ data }) => {
       this.events = data;
+      console.log(this.events);
     });
+    
+   
+  
+  
+  
   },
   methods: {
     // getId(id) {
@@ -112,11 +122,14 @@ export default {
     getTime(time) {
       return moment(time).fromNow();
     },
-    disableTimer(time) {
-      if (time > moment().format()) {
-        return true;
-      } else return false;
-    },
+    
+    disableTimer(time,end){
+      
+      if(time>moment().format()||end!==undefined){return true}
+      
+      else return false
+   
+    }
   },
   components: {
     NavbarEvent,

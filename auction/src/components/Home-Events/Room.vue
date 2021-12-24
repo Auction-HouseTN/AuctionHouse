@@ -30,7 +30,7 @@
                   <h2 id="currentbid">
                     <td>
                       Current Bid Amount <br />
-                      {{ currentBidValue }}
+                      {{ currentBidValue }} Dt
                     </td>
                   </h2>
                 </tr>
@@ -51,16 +51,29 @@
                   </button>
                 </div>
               </div>
-              <ul>
+              <ul class="messages">
                 <li v-for="load in loadList" :key="load.message">
-                  {{ load.message }}
+                  {{ load.message }} Dt
                 </li>
               </ul>
             </div>
           </div>
           <div class="right-side">
             <div class="cover_image">
-              <img src="https://imgur.com/TTmJuFD.jpg" />
+              <h2>aaaaaaaaa</h2>
+              <h2>aaaaaaaaa</h2>
+              <h2>aaaaaaaaa</h2>
+              <h2>hhhhhhhhhhhhhhh</h2>
+              <h2>hhhhhhhhhhhhhhh</h2>
+              <h2>hhhhhhhhhhhhhhh</h2>
+              <h2>hhhhhhhhhhhhhhh</h2>
+              <h2>hhhhhhhhhhhhhhh</h2>
+              <h2>hhhhhhhhhhhhhhh</h2>
+              <h2>hhhhhhhhhhhhhhh</h2>
+              <h2>hhhhhhhhhhhhhhh</h2>
+              <h2>aaaaaaaaaaaaa</h2>
+              <h2>aaaaaaaaaaaaa</h2>
+              <!-- <img src="https://imgur.com/TTmJuFD.jpg" /> -->
             </div>
           </div>
         </div>
@@ -131,6 +144,8 @@
 <script>
 import io from "socket.io-client";
 import NavbarEvent from "./Navbar-event.vue";
+import axios from "axios";
+import moment from "moment"
 export default {
   name: "Room",
   props: ["e"],
@@ -146,7 +161,9 @@ export default {
       //     message: '',
       //     messages: [],
       socket: io("localhost:5000"),
-      welcome: {},
+       welcome:{},
+      
+     
     };
   },
 
@@ -172,14 +189,19 @@ export default {
     },
   },
   mounted() {
-    if (this.e) {
-      this.welcome = JSON.parse(this.e);
-      this.currentBidValue = this.welcome.startPrice;
-    }
-    console.log("jjjj", this.currentBidValue);
+    
+  
+     if (this.e) {
+            this.welcome = JSON.parse(this.e) 
+            this.currentBidValue=this.welcome.startPrice
+            
+        }
 
-    //       this.events=this.$route.params.data
-    // console.log("pppppppp",this.events);
+        
+        
+       
+
+
     // this.socket.on('MESSAGE', (data) => {
     //     this.messages = [...this.messages, data];
     //     // you can also do this.messages.push(data)
@@ -196,7 +218,12 @@ export default {
       this.counter = counter;
       if (counter === 1) {
         this.winner = this.loadList[this.loadList.length - 1].user;
-        // request to database update
+        var current=moment().format()
+        var id=this.welcome._id
+        
+         axios.put(`http://localhost:5000/closeEvent/${id}`, {date:current}).then((data) => {
+        console.log('update request',data).catch(err=>console.log(err))
+      });
       }
     });
   },
@@ -283,6 +310,10 @@ export default {
 }
 #currentbid{
   margin-left:180px;
+}
+.messages{
+  margin-top: 20px;
+  font-size:40px
 }
 
 .social {
@@ -512,6 +543,10 @@ select {
   background-color: #ffffff;
   height: 100%;
 }
+.right-side{
+  outline: 1px solid red;
+}
+
 
 .cover_image {
   position: relative;

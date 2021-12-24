@@ -14,12 +14,12 @@
                     <li id="tojupiter">
                     <router-link to='/create'>Create </router-link>
                     </li>
-                    <li id="tomoon">
+                    <!-- <li id="tomoon">
                     <router-link to='/buy'>Buy Coins</router-link>
                     </li>
                     <li id="bo">
                      <router-link to='/sell'>Sell Coins</router-link>
-                    </li>
+                    </li> -->
                     <li id="bo">
                      <router-link to='/aboutus'>About us</router-link>
                     </li>
@@ -27,7 +27,7 @@
                      <router-link to='/login'>Log out</router-link> 
                     </li> 
                  </ul>
-                 <span class="dot"></span>
+                 <!-- <span class="dot"></span> -->
                 </div>
             </div>    
         </div>

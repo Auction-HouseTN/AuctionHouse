@@ -87,7 +87,8 @@
 import NavbarEvent from "./Navbar-event.vue";
 export default {
     name: "AboutUs",
-    components: { NavbarEvent }
+    components: { NavbarEvent },
+  
 }
 </script>
 
