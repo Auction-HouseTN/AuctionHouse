@@ -16,7 +16,7 @@
                 <h3 id="registerword">Register</h3>
                 <div class="login__field">
                   <i class="login__icon fas fa-signature"></i>
-                  <input
+                  <input v-model="Name"
                     type="text"
                     class="login__input"
                     placeholder=" Name "
@@ -24,7 +24,7 @@
                 </div>
                 <div class="login__field">
                   <i class="login__icon fas fa-user"></i>
-                  <input
+                  <input v-model="username"
                     type="text"
                     class="login__input"
                     placeholder="User name "
@@ -32,7 +32,7 @@
                 </div>
                 <div class="login__field">
                   <i class="login__icon fas fa-envelope"></i>
-                  <input
+                  <input v-model="email"
                     type="text"
                     class="login__input"
                     placeholder=" Email"
@@ -40,13 +40,13 @@
                 </div>
                 <div class="login__field">
                   <i class="login__icon fas fa-lock"></i>
-                  <input
+                  <input v-model="password"
                     type="password"
                     class="login__input"
                     placeholder="Password"
                   />
                 </div>
-                <button type="submit" class="button login__submit">
+                <button type="submit" class="button login__submit" v-on:click="signup">
                   <router-link class="nav-link" to="/login"
                     >Sign in Now</router-link
                   >
@@ -86,8 +86,23 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Registre",
+  Name:'',
+  username:'',
+  email:'',
+  password:'' ,
+   methods:{
+    signup:function(){
+    
+      axios.post("http://localhost:5000/api/auth/signup",{name:this.Name,username:this.username,email:this.email,password:this.password}).then((res)=>{
+  
+        console.log(res)
+        
+        }
+      )}
+    }
 };
 </script>
 
@@ -100,7 +115,9 @@ export default {
 }
 
 body {
-  background: linear-gradient(90deg, #c7c5f4, #776bcc);
+ 
+  background: linear-gradient(90deg, #e0dfe9, #b3b1c7);
+
 }
 
 .container {
@@ -111,7 +128,7 @@ body {
 }
 
 .screen {
-  background: linear-gradient(90deg, #5d54a4, #7c78b8);
+ background: linear-gradient(90deg, #d4d3d8, #727086);
   position: relative;
   height: 700px;
   width: 500px;
@@ -281,7 +298,7 @@ body {
 /*
 */
 .allthecomponent {
-  background: linear-gradient(-45deg, #c5c8d9, #c2c4f2, #7e81bf, #1e2159);
+  background: linear-gradient(-45deg, #c5c8d9, #c2c4f2, #b1b3da, #b8b9c2);
   background-size: 400% 400%;
   animation: gradient 7s ease infinite;
   height: 100%;

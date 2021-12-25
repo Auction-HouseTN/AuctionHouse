@@ -1,4 +1,5 @@
 <template>
+<div>
   <link
     rel="stylesheet"
     href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
@@ -16,7 +17,7 @@
               <h3 class="loginword">Login</h3>
               <div class="login__field">
                 <i class="login__icon fas fa-user"></i>
-                <input
+                <input v-model="username"
                   type="text"
                   class="login__input"
                   placeholder="User name / Email"
@@ -24,13 +25,13 @@
               </div>
               <div class="login__field">
                 <i class="login__icon fas fa-lock"></i>
-                <input
+                <input v-model="password"
                   type="password"
                   class="login__input"
                   placeholder="Password"
                 />
               </div>
-              <button type="submit" class="button login__submit">
+              <button type="submit" class="button login__submit" v-on:click="login">
                 <router-link class="nav-link" to="/">Log In Now</router-link>
                 <span class="button__text"></span>
                 <i class="button__icon fas fa-chevron-right"></i>
@@ -64,12 +65,36 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Login",
-};
+  username:'',
+  password:"",
+  user:{},
+
+  methods:{
+    login:function(){
+      console.log('usename',this.username)
+      console.log('password',this.password)
+      axios.post("http://localhost:5000/api/auth/signin",{username:this.username,password:this.password}).then((res)=>{
+  
+        var user=JSON.stringify(res.data)
+        console.log(user)
+          sessionStorage.setItem('user',user)
+   
+        
+        console.log("session",sessionStorage.getItem('user'))
+        
+        }
+      )}
+    }
+  }
+
 </script>
 
 <style scoped>
@@ -81,7 +106,7 @@ export default {
 }
 
 body {
-  background: linear-gradient(90deg, #c7c5f4, #776bcc);
+  background: linear-gradient(90deg, #e0dfe9, #b3b1c7);
 }
 
 .container {
@@ -92,7 +117,7 @@ body {
 }
 
 .screen {
-  background: linear-gradient(90deg, #5d54a4, #7c78b8);
+  background: linear-gradient(90deg, #d4d3d8, #727086);
   position: relative;
   height: 600px;
   width: 430px;
@@ -142,7 +167,7 @@ body {
 .screen__background__shape3 {
   height: 540px;
   width: 190px;
-  background: linear-gradient(270deg, #5d54a4, #6a679e);
+  background: linear-gradient(270deg, #7d74c0, #6a679e);
   top: -24px;
   right: 0;
   border-radius: 32px;
@@ -258,10 +283,10 @@ body {
 /*
 */
 .allthecomponent {
-  background: linear-gradient(-45deg, #c5c8d9, #c2c4f2, #7e81bf, #1e2159);
+  background: linear-gradient(-45deg, #c5c8d9, #c2c4f2, #b1b3da, #b8b9c2);
   background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-  height: 100vh;
+  animation: gradient 7s ease infinite;
+  height: 100%;
 }
 
 @keyframes gradient {

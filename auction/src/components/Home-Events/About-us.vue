@@ -28,7 +28,7 @@
               <!-- Team Details-->
               <div class="single_advisor_details_info">
                 <h6>Tababi Ghassen</h6>
-                <p class="designation">Project Owner</p>
+                <p class="designation">product owner</p>
               </div>
             </div>
           </div>
@@ -66,7 +66,7 @@
           <div class="col-12 col-sm-6 col-lg-3">
             <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
               <!-- Team Thumb-->
-              <div class="advisor_thumb"><img src="https://ca.slack-edge.com/T02E5DNSTR6-U02E5F7EXK2-21a1422dcfe7-512" alt="">
+              <div class="advisor_thumb"><img src="https://scontent.ftun4-1.fna.fbcdn.net/v/t1.6435-9/80293194_2561620020738089_3804370795438800896_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=174925&_nc_ohc=zY5nfMA2jy8AX8kJRnD&_nc_ht=scontent.ftun4-1.fna&oh=00_AT85GA2d2nkXCwiuwYGg2eqdrgWGGSqY4AP68y0N8b2YZA&oe=61EA0820" alt="">
                 <!-- Social Info-->
                 <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
               </div>
@@ -87,15 +87,18 @@
 import NavbarEvent from "./Navbar-event.vue";
 export default {
     name: "AboutUs",
-    components: { NavbarEvent }
+    components: { NavbarEvent },
+  
 }
 </script>
 
 <style scoped>
 .allcomponent{
-    margin-top:20px;
-    background:#eee;
-    
+    margin-top:20px;   
+}
+#titleteam{
+    margin-top: 8%;
+margin-bottom: 6%;
 }
 
 .single_advisor_profile {
@@ -114,7 +117,7 @@ export default {
     border-radius: 15px 15px 0 0;
     margin: 0 auto;
     padding: 30px 30px 0 30px;
-    background-color: #3f43fd;
+    background-color: #e2e2e2;
     overflow: hidden;
 }
 .single_advisor_profile .advisor_thumb::after {
@@ -126,7 +129,7 @@ export default {
     bottom: -45px;
     left: -25%;
     content: "";
-    background-color: #ffffff;
+    background-color: #ffffffd5;
     -webkit-transform: rotate(-15deg);
     transform: rotate(-15deg);
 }
@@ -173,7 +176,7 @@ export default {
     z-index: 1;
     width: 50px;
     height: 3px;
-    background-color: #3f43fd;
+    background-color: #afb1f0;
     content: "";
     top: 12px;
     right: 30px;
@@ -201,7 +204,7 @@ export default {
 }
 .single_advisor_profile:hover .advisor_thumb::after,
 .single_advisor_profile:focus .advisor_thumb::after {
-    background-color: #070a57;
+    background-color: #b9bbf0;
 }
 .single_advisor_profile:hover .advisor_thumb .social-info a,
 .single_advisor_profile:focus .advisor_thumb .social-info a {
@@ -215,7 +218,7 @@ export default {
 }
 .single_advisor_profile:hover .single_advisor_details_info,
 .single_advisor_profile:focus .single_advisor_details_info {
-    background-color: #070a57;
+    background-color: #b9bbf0;
 }
 .single_advisor_profile:hover .single_advisor_details_info::after,
 .single_advisor_profile:focus .single_advisor_details_info::after {
@@ -230,7 +233,8 @@ export default {
     color: #ffffff;
 }
 img{
-    height:90%;
-    width:90%;
+    height:100%;
+    width:100%;
+    border-radius: 20px;
 }
 </style>
