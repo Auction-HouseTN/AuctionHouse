@@ -1,6 +1,7 @@
 <template>
   <div>
     <NavbarEvent />
+
       <button v-on:click="pay(1000)" class="button">
   <span class="button__text">
     <span>Buy 1000 Coins</span>
@@ -101,6 +102,7 @@
 </template>
 <script>
 import NavbarEvent from "./Navbar-event.vue";
+
 // import axios from "axios";
 export default {
   name: "Buy",

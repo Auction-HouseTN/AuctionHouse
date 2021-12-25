@@ -81,9 +81,11 @@
       </button> -->
     <!-- <button v-on:click="getId(item)">
         <router-link :to="{ name: 'Room', params: { e:JSON.stringify(item)} }">
+
           Join to event
         </router-link> -->
     <!-- </button> 
+
     </ul>-->
   </div>
 </template>

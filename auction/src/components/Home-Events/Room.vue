@@ -2,6 +2,7 @@
   <div>
     <NavbarEvent />
 
+
     <div class="container">
       <div class="card">
         <div class="form">
@@ -116,6 +117,7 @@ import moment from "moment";
 export default {
   name: "Room",
   props: ["e"],
+
   components: { NavbarEvent },
   data() {
     return {
@@ -129,9 +131,11 @@ export default {
       message: "",
       messages: [],
       socket: io("localhost:5000"),
+
       welcome: {},
     };
   },
+
 
   methods: {
     chat(e) {
@@ -165,6 +169,7 @@ export default {
   mounted() {
     if (this.e) {
       this.welcome = JSON.parse(this.e);
+
       this.currentBidValue = this.welcome.startPrice;
     }
 
@@ -173,6 +178,7 @@ export default {
       //or this.messages.push(data)
       console.log(this.messages);
     });
+
     this.socket.on("message", (load) => {
       console.log("load", load);
       if (load) {
@@ -199,6 +205,7 @@ export default {
       }
     });
   },
+
 };
 </script>
 
@@ -510,6 +517,7 @@ select {
     transform: scale3d(1.1, 1.1, 1);
   }
 }
+
 
 @keyframes fill {
   100% {
