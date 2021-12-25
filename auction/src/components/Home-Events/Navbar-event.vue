@@ -9,26 +9,27 @@
                 <div class="topnav">
                     <ul id="myUL">
                     <li id="tomars">
-                    <router-link to='/'>Home </router-link>
+                    <router-link to='/'>Home</router-link>
                     </li>
                     <li id="tojupiter">
-                    <router-link to='/create'>Create </router-link>
+                    <router-link to='/create'>Create</router-link>
                     </li>
                     <li id="tomoon">
-                    <router-link to='/buy'>Buy Coins</router-link>
+                    <router-link to='/buy'>Buy</router-link>
                     </li>
                     <li id="bo">
-                     <router-link to='/sell'>Sell Coins</router-link>
+                     <router-link to='/moneyChange'>Sell</router-link>
                     </li>
                     <li id="bo">
                      <router-link to='/aboutus'>About us</router-link>
                     </li>
                     <li id="bo">
-                      <button @click="logout">
+                      <button class="navlogout" @click="logout">
                      <router-link to='/login' >Log out</router-link> 
                       </button>
                     </li>
                  </ul>
+                 <!-- <span class="dot"></span> -->
                 </div>
             </div>    
         </div>
@@ -150,7 +151,18 @@ export default {
 .nav div.main_list ul li a:hover{
     color: #97959A;
 }
-#myUL{
-
+.dot {
+  height: 18px;
+  width: 18px;
+  background-color: rgb(96, 177, 93);
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 660px;
+  
+}
+.navlogout{
+padding: 0;
+border: none;
+background: none;
 }
 </style>

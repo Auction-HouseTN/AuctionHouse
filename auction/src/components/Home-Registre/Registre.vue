@@ -115,7 +115,9 @@ export default {
 }
 
 body {
-  background: linear-gradient(90deg, #c7c5f4, #776bcc);
+ 
+  background: linear-gradient(90deg, #e0dfe9, #b3b1c7);
+
 }
 
 .container {
@@ -126,7 +128,7 @@ body {
 }
 
 .screen {
-  background: linear-gradient(90deg, #5d54a4, #7c78b8);
+ background: linear-gradient(90deg, #d4d3d8, #727086);
   position: relative;
   height: 700px;
   width: 500px;
@@ -296,7 +298,7 @@ body {
 /*
 */
 .allthecomponent {
-  background: linear-gradient(-45deg, #c5c8d9, #c2c4f2, #7e81bf, #1e2159);
+  background: linear-gradient(-45deg, #c5c8d9, #c2c4f2, #b1b3da, #b8b9c2);
   background-size: 400% 400%;
   animation: gradient 7s ease infinite;
   height: 100%;
